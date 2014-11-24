@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_entries">
+        <item>totoro</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>footprint</item>
+    </string-array>
+     <string-array name="list_entryvalues">
+        <item>totoro</item>
+        <item>blue</item>
+        <item>green</item>
+        <item>footprint</item>
+    </string-array>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MapTestv2</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="api_key">AIzaSyBR5LBKVgYs0lVJe2cnmXLLCim7v1wuhao</string>
+    <string name="location_button">Now</string>
+    <string name="timer_ON">自動更新ON</string>
+    <string name="timer_OFF">自動更新OFF</string>
+    <string name="put_marker">マーカー配置</string>
+    <string name="setting">setting</string>
+	<string name="list_title">マーカーの色</string>
+	<string name="list_summary">list_summary</string>
+	<string name="list_dialogtitle">list_dialogtitle</string>
+	<string name="name_title">User name</string>
+	<string name="name_summary">----</string>
+	<string name="name_dialogtitle">namepreference</string>
+</resources>
+
+

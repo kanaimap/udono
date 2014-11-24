@@ -1,0 +1,55 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+<fragment
+  android:id="@+id/map"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:clickable="true"
+  android:name="com.google.android.gms.maps.SupportMapFragment"/>
+
+
+<SlidingDrawer
+    android:id="@+id/slidingDrawer1"
+     android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:content="@+id/content"
+    android:handle="@+id/handle" 
+      android:topOffset="320dp">
+
+ <Button
+    android:id="@id/handle"
+    android:layout_width="88dip"
+    android:layout_height="44dip"
+    android:background="@drawable/handle"/> 
+
+   <LinearLayout
+            android:id="@id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="#d3d3d3">
+				
+			<Button
+			    android:id="@+id/Button01"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_weight="1"
+			    android:text="@string/location_button" />
+			
+			<ToggleButton 
+			    android:id="@+id/toggleButton1"
+		    	android:layout_width="wrap_content" 
+		    	android:layout_height="wrap_content"
+			  	android:layout_weight="1"
+			  	  android:textOn="自動更新Off" 
+			  	  android:textOff="自動更新 On"
+			   	 android:checked="false">
+			</ToggleButton>
+        	
+    </LinearLayout>
+</SlidingDrawer>
+
+ </RelativeLayout>
