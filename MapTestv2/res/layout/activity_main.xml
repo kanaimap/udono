@@ -17,7 +17,7 @@
     android:layout_height="wrap_content"
     android:content="@+id/content"
     android:handle="@+id/handle" 
-      android:topOffset="320dp">
+   	android:topOffset="325dp">
 
  <Button
     android:id="@id/handle"
@@ -29,26 +29,53 @@
             android:id="@id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:background="#d3d3d3">
-				
-			<Button
-			    android:id="@+id/Button01"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_weight="1"
-			    android:text="@string/location_button" />
+	
+       		<HorizontalScrollView
+	     	   android:layout_width="wrap_content"
+	     	   android:layout_height="wrap_content">	
+	          
+       		    <LinearLayout
+		            android:id="@id/content"
+		            android:layout_width="wrap_content"
+		            android:layout_height="match_parent"
+		            android:orientation="horizontal"
+		            android:background="#d3d3d3">
+		            
+		            <Button
+					    android:id="@+id/NowB"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					  	android:background="@drawable/custom_now"/>
+	
+					<ToggleButton 
+					    android:id="@+id/Clear2B"
+				    	android:layout_width="wrap_content" 
+				    	android:layout_height="wrap_content"
+					  	 android:checked="true"
+				 	 	 android:background="@drawable/custom_clear2b">
+					</ToggleButton>
+					<Button
+					    android:id="@+id/DoukiB"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:background="@drawable/custom_douki" />
+					<ToggleButton 
+					    android:id="@+id/AutoB"
+				    	android:layout_width="wrap_content" 
+				    	android:layout_height="wrap_content"
+					  	 android:checked="false"
+				 	 	 android:background="@drawable/custom_togglebutton">
+					</ToggleButton>
+		        	 <Button
+					    android:id="@+id/SettingB"
+					    android:layout_width="wrap_content"
+					    android:layout_height="wrap_content"
+					    android:background="@drawable/custom_setting"/>
+		       </LinearLayout>
+		</HorizontalScrollView>
 			
-			<ToggleButton 
-			    android:id="@+id/toggleButton1"
-		    	android:layout_width="wrap_content" 
-		    	android:layout_height="wrap_content"
-			  	android:layout_weight="1"
-			  	  android:textOn="自動更新Off" 
-			  	  android:textOff="自動更新 On"
-			   	 android:checked="false">
-			</ToggleButton>
-        	
     </LinearLayout>
 </SlidingDrawer>
 

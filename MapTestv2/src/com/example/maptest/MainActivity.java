@@ -30,12 +30,14 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends FragmentActivity {
@@ -48,9 +50,12 @@ public class MainActivity extends FragmentActivity {
 	// 法政大学に打つマーカ
 	MarkerOptions options2 = new MarkerOptions();
 
-	// ボタン用変数 1:NOW 	2,3,4:未使用
-	Button mButton1, mButton2, mButton3, mButton4;
-	ToggleButton tb1;
+///////////////////////////////////////////////////////////////////////////////////////////////////
+	//ボタン
+	Button SettingB,  NowB,DoukiB;
+	ToggleButton AutoB,Clear2B;
+	int marker_switch = 0;
+	///////////////////////////////////////////////////////////////////////////////////////////////////
 	// タイムゾーン取得用変数
 	TimeZone tz = TimeZone.getTimeZone("Asia/Tokyo");
 	
@@ -128,17 +133,17 @@ public class MainActivity extends FragmentActivity {
 				.findFragmentById(R.id.map)).getMap();
 
 		MapsInitializer.initialize(this);
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		// ボタン割り当て
-		//mbutton1:now 	tb1:自動更新
-		mButton1 = (Button) findViewById(R.id.Button01);
-//		mButton2 = (Button) findViewById(R.id.Button02);
-//		mButton3 = (Button) findViewById(R.id.Button03);
-		tb1 = (ToggleButton) findViewById(R.id.toggleButton1);
-		tb1.setOnCheckedChangeListener(tb1_OnCheckedChangeListener);
+		NowB = (Button) findViewById(R.id.NowB);
+		SettingB= (Button) findViewById(R.id.SettingB);
+		DoukiB = (Button) findViewById(R.id.DoukiB);
+		AutoB = (ToggleButton) findViewById(R.id.AutoB);
+		AutoB.setOnCheckedChangeListener(autob_OnCheckedChangeListener);
+		Clear2B = (ToggleButton) findViewById(R.id.Clear2B);
+		Clear2B.setOnCheckedChangeListener(clear2b_OnCheckedChangeListener);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		// タイマーOFFボタンをクリック禁止に
-		//mButton3.setEnabled(false);
 
 		// 初期位置を法政大学とする
 		moveToFirstRocation();
@@ -255,35 +260,54 @@ public class MainActivity extends FragmentActivity {
 			flag2 = false;
 		}
 		/*****************************************/
-		
+		map.setOnMarkerClickListener(new OnMarkerClickListener() {
+			@Override
+			public boolean onMarkerClick(Marker marker) {
+				// TODO Auto-generated method stub
+				if(marker_switch==1){
+					Toast.makeText(getApplicationContext(), "マーカー削除", Toast.LENGTH_LONG).show();
+					marker.remove();
+				}
+				return false;
+			}
+		});
 		
 		
 		/***************************ロングクリックによる現在地取得***************************/
 		map.setOnMapLongClickListener(new OnMapLongClickListener(){ 
- 			@Override 
+ 			
+			@Override 
 			public void onMapLongClick(LatLng point){ 
  				
- 				//現在地を取得する
- 				double mylat = point.latitude;
-				double mylon = point.longitude;				
-				options1.position(point);
-				//名前を取得する
-		    	String name_result = (String)sharedpreferences.getString("name","Unselected");  		
-		    	//マーカー画像を設定する
-				icon_color();
-				//現在時刻を取得する
-				calendar = Calendar.getInstance(tz);
-				df = new SimpleDateFormat("HH:mm",
-						Locale.JAPANESE);
-				time = df.format(calendar.getTime());
+				//marker_switch = = 0 マーカー設置モード
+				if(marker_switch==0){
+	 				//現在地を取得する
+	 				double mylat = point.latitude;
+					double mylon = point.longitude;				
+					options1.position(point);
+					//名前を取得する
+			    	String name_result = (String)sharedpreferences.getString("name","Unselected");  		
+			    	//マーカー画像を設定する
+					icon_color();
+					//現在時刻を取得する
+					calendar = Calendar.getInstance(tz);
+					df = new SimpleDateFormat("HH:mm",
+							Locale.JAPANESE);
+					time = df.format(calendar.getTime());
+					
+					options1.icon(icon);
+					//マーカー配置
+					options1.title("今ここ！at " + time + " by" + name_result);
+					map.addMarker(options1);
+					//位置情報をデータベースに送信
+					InsertMyLocation post = new InsertMyLocation(mylat, mylon, time,name_result);
+					post.execute();
+				}
 				
-				options1.icon(icon);
-				//マーカー配置
-				options1.title("今ここ！at " + time + " by" + name_result);
-				map.addMarker(options1);
-				//位置情報をデータベースに送信
-				InsertMyLocation post = new InsertMyLocation(mylat, mylon, time,name_result);
-				post.execute();
+			
+					
+					
+				
 			 
  			} 
 		}); 
@@ -292,7 +316,7 @@ public class MainActivity extends FragmentActivity {
 		
 		
 		/************************************Nowボタンが押された時の処理****************************************/
-		mButton1.setOnClickListener(new OnClickListener() {
+		NowB.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				// 現在地が取得できない場合は、何もしない
 				if (map.getMyLocation() == null);
@@ -336,45 +360,52 @@ public class MainActivity extends FragmentActivity {
 		});
 		/*****************************************************************************************************/
 		
-		
-		
-		/***************************************自動更新関連の処理********************************************/
-		/*
-		// 自動更新ONボタンが押された時の処理
-		mButton2.setOnClickListener(new OnClickListener() {
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		/************************************Settingボタンが押された時の処理****************************************/
+		SettingB.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-
-				// 自動更新ONボタンをクリック禁止に
-				mButton2.setEnabled(false);
-
-				// 自動更新OFFボタンをクリック可能に
-				mButton3.setEnabled(true);
-
-				// バックグラウンドでも動作を可能とするためにServiceを呼び出す
-				startService(new Intent(MainActivity.this, AutoGetLocation.class));
+				// 現在地が取得できない場合は、何もしない
+				if (map.getMyLocation() == null);
+				else {
+					Intent intent = new Intent();
+					intent.setClassName("com.example.maptest","com.example.maptest.Setting");
+					showMessage("open the setting");
+					startActivity(intent);
+				}
 			}
 		});
-
-		// 自動更新OFFボタンが押された時の処理
-		mButton3.setOnClickListener(new OnClickListener() {
+		/*****************************************************************************************************/
+		
+		/***********************************Doukiボタンが押された時の処理******************************************/
+		DoukiB.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-
-				// 自動更新ONボタンをクリック可能に
-				mButton2.setEnabled(true);
-
-				// 自動更新OFFボタンをクック禁止に
-				mButton3.setEnabled(false);
-
-				// Serviceを停止する.
-				stopService(new Intent(MainActivity.this, AutoGetLocation.class));
+				putmarker();
 			}
-		});*/
-		/**************************************************************************************************/	
+		});
+		/*****************************************************************************************************/
 		
 	
 	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	 private CompoundButton.OnCheckedChangeListener tb1_OnCheckedChangeListener =   
+
+	/************************************Clearボタンが押された時の処理*****************************************/
+	private CompoundButton.OnCheckedChangeListener clear2b_OnCheckedChangeListener =   
+	        new CompoundButton.OnCheckedChangeListener(){  
+	            @Override  
+	            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {  
+	            	if(isChecked==true){
+	            		//マーカー設置モード
+	            		marker_switch=0;
+	            	}else{
+	            		//マーカー削除モード
+	            		marker_switch=1;
+	            	}
+	            	
+	           }  
+	        };  
+	/*****************************************************************************************************/
+	
+	//自動更新ボタン//////////////////////////////////////////↓ここの部分///////////
+	 private CompoundButton.OnCheckedChangeListener autob_OnCheckedChangeListener =   
 		        new CompoundButton.OnCheckedChangeListener(){  
 		            @Override  
 		            public void onCheckedChanged(CompoundButton buttonView,boolean isChecked) {  
@@ -389,7 +420,7 @@ public class MainActivity extends FragmentActivity {
 		           }  
 		        };  
 	
-	///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
 	
 	/*****設定画面において、マーカー配置ボタンが押されたならば、flag2をtrueにする*****/
 	@Override
@@ -403,7 +434,7 @@ public class MainActivity extends FragmentActivity {
 		}
 	}
 	/*********************************************************************************/
-
+	
 	
 	
 	/***************************************** 初期位置を設定するメソッド***********************************/
@@ -449,9 +480,7 @@ public class MainActivity extends FragmentActivity {
 			database_id = new int[jsonArray.length()];
 			database_number = jsonArray.length();
 			for (int i = 0; i < database_number; i++) {
-
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
-				
 				database_name[i] = jsonObject.getString("name");
 				database_latitude[i] = jsonObject.getDouble("latitude");
 				database_longitude[i] = jsonObject.getDouble("longitude");
@@ -482,6 +511,7 @@ public class MainActivity extends FragmentActivity {
 			// マーカーを打つ
 			options1.title("今ここ! at " + database_time[i] + " by" + database_name[i]);
 			map.addMarker(options1);
+			
 		}
 		/*****************************************************************************************************/
 	}
