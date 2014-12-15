@@ -19,7 +19,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/siba"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <meta-data
@@ -31,21 +31,16 @@
 		<uses-library
 		    android:name="com.google.android.maps" />
         <activity
-            android:name="com.example.maptest.MainActivity"
+            android:name="com.example.maptest.start"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="com.example.maptest.Setting"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name="com.example.maptest.MainActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.example.maptest.Setting" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.example.maptest.MemberList" android:screenOrientation="portrait"></activity>    
         <service android:name="AutoGetLocation" />
     </application>
 </manifest>

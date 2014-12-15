@@ -13,9 +13,20 @@
 	<string name="list_title">マーカーの色</string>
 	<string name="list_summary">list_summary</string>
 	<string name="list_dialogtitle">list_dialogtitle</string>
+	
+	<string name="ashiato_title">あしあと</string>
+	<string name="ashiato_dialogtitle">あしあとを選んでください</string>
+	
+	
 	<string name="name_title">User name</string>
 	<string name="name_summary">----</string>
 	<string name="name_dialogtitle">namepreference</string>
+	<string name="comment_title">Comment</string>
+	<string name="comment_summary">----</string>
+	<string name="comment_dialogtitle">commentpreference</string>
+	<string name="interval_title">足跡の間隔(m)</string>
+	<string name="interval_summary">----</string>
+	<string name="interval_dialogtitle">intervalpreference</string>
 </resources>
 
 

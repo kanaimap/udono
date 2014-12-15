@@ -2,81 +2,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-<fragment
-  android:id="@+id/map"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:clickable="true"
-  android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-<SlidingDrawer
-    android:id="@+id/slidingDrawer1"
-     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:content="@+id/content"
-    android:handle="@+id/handle" 
-   	android:topOffset="325dp">
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.MapFragment"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            class="com.google.android.gms.maps.SupportMapFragment" />
 
- <Button
-    android:id="@id/handle"
-    android:layout_width="88dip"
-    android:layout_height="44dip"
-    android:background="@drawable/handle"/> 
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/transparent" />
+    </RelativeLayout>
 
-   <LinearLayout
-            android:id="@id/content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="#d3d3d3">
-	
-       		<HorizontalScrollView
-	     	   android:layout_width="wrap_content"
-	     	   android:layout_height="wrap_content">	
-	          
-       		    <LinearLayout
-		            android:id="@id/content"
-		            android:layout_width="wrap_content"
-		            android:layout_height="match_parent"
-		            android:orientation="horizontal"
-		            android:background="#d3d3d3">
-		            
-		            <Button
-					    android:id="@+id/NowB"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					  	android:background="@drawable/custom_now"/>
-	
-					<ToggleButton 
-					    android:id="@+id/Clear2B"
-				    	android:layout_width="wrap_content" 
-				    	android:layout_height="wrap_content"
-					  	 android:checked="true"
-				 	 	 android:background="@drawable/custom_clear2b">
-					</ToggleButton>
-					<Button
-					    android:id="@+id/DoukiB"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:background="@drawable/custom_douki" />
-					<ToggleButton 
-					    android:id="@+id/AutoB"
-				    	android:layout_width="wrap_content" 
-				    	android:layout_height="wrap_content"
-					  	 android:checked="false"
-				 	 	 android:background="@drawable/custom_togglebutton">
-					</ToggleButton>
-		        	 <Button
-					    android:id="@+id/SettingB"
-					    android:layout_width="wrap_content"
-					    android:layout_height="wrap_content"
-					    android:background="@drawable/custom_setting"/>
-		       </LinearLayout>
-		</HorizontalScrollView>
-			
-    </LinearLayout>
-</SlidingDrawer>
+    <SlidingDrawer
+        android:id="@+id/slidingDrawer1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:content="@+id/content"
+        android:handle="@+id/handle"
+        android:orientation="vertical"
+        android:topOffset="325dp" >
 
- </RelativeLayout>
+        <Button
+            android:id="@+id/handle"
+            android:layout_width="88dip"
+            android:layout_height="44dip"
+            android:background="@drawable/handle" />
+
+        <HorizontalScrollView
+            android:id="@+id/content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:id="@id/content"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#d3d3d3"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/NowB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_now" />
+
+                <ToggleButton
+                    android:id="@+id/Clear2B"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_clear2b"
+                     android:textOff=" "
+					android:textOn=" "
+                    android:checked="true" >
+                </ToggleButton>
+
+                <Button
+                    android:id="@+id/DoukiB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_douki" />
+
+                <ToggleButton
+                    android:id="@+id/AutoB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_togglebutton"
+                    android:checked="false" >
+                </ToggleButton>
+				<Button
+                    android:id="@+id/User"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:background="@drawable/custom_friends"/>
+                <Button
+                    android:id="@+id/SettingB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/custom_setting" />
+                
+            </LinearLayout>
+        </HorizontalScrollView>
+    </SlidingDrawer>
+
+</RelativeLayout>

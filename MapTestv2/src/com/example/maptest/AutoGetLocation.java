@@ -23,6 +23,8 @@ public class AutoGetLocation extends Service implements LocationListener {
 	boolean p;
 	String name_result;
 	
+	Http.Request request;
+	
 	SharedPreferences sharedpreferences;
 
 	// 現在地取得用の変数
@@ -82,10 +84,16 @@ public class AutoGetLocation extends Service implements LocationListener {
 		double latitude, longitude;
 		latitude = location.getLatitude();
 		longitude = location.getLongitude();
-		
-		//データベースに位置情報を送信
-		InsertMyLocation post = new InsertMyLocation(latitude, longitude, time,name_result);
-		post.execute();
+
+		request = new Http.Request();
+		request.url = "http://192.168.10.102/insert_mysql.php";
+		request.params.add(new Http.Param(Http.Param.TYPE_STRING, "lat",String.valueOf(latitude)));
+		request.params.add(new Http.Param(Http.Param.TYPE_STRING, "lon", String.valueOf(longitude)));
+		request.params.add(new Http.Param(Http.Param.TYPE_STRING, "time", time));
+		request.params.add(new Http.Param(Http.Param.TYPE_STRING, "name", name_result));
+		request.params.add(new Http.Param(Http.Param.TYPE_STRING, "comment", "今ここ"));
+		//非同期通信
+		Http.request(request, StringResponseHandler.getInstance());
 	}
 
 	@Override

@@ -17,7 +17,10 @@ public class Setting extends PreferenceActivity
 	
 	 // Preference
 	private ListPreference list;
+	private ListPreference ashiato;
 	private EditTextPreference name;
+	private EditTextPreference interval;
+	private EditTextPreference comment;
 	
 
 	
@@ -29,11 +32,17 @@ public class Setting extends PreferenceActivity
 		addPreferencesFromResource(R.xml.pref);
 		 // Preferenceの取得
 		list = (ListPreference)findPreference("list");
+		ashiato = (ListPreference)findPreference("ashiato");
 		name = (EditTextPreference)findPreference("name");
+		comment = (EditTextPreference)findPreference("comment");
+		interval = (EditTextPreference)findPreference("interval");
 		
 		// リスナーを設定する
 		list.setOnPreferenceChangeListener(this);
+		ashiato.setOnPreferenceChangeListener(this);
 		name.setOnPreferenceChangeListener(this);
+		comment.setOnPreferenceChangeListener(this);
+		interval.setOnPreferenceChangeListener(this);
 		
 		Intent intent = getIntent();
 		String data = intent.getStringExtra("key");
@@ -43,14 +52,20 @@ public class Setting extends PreferenceActivity
 		
 		// 値の取得
 		String param_list = p.getString("list", "Unselected");
+		String ashiato_list = p.getString("ashiato", "Unselected");
 		String param_name = p.getString("name", "Unselected");
+		String param_comment = p.getString("comment","今ここ");
+		String param_interval = p.getString("interval","500");
 		
 		// サマリーの設定
 		setSummary(list, param_list);
+		setSummary(ashiato, ashiato_list);
 		setSummary(name, param_name);
-		//マーカー配置ボタン
-		Preference button = (Preference)findPreference("button");
-		button.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		setSummary(comment,param_comment);
+		setSummary(interval,param_interval);
+		//マーカー削除ボタン
+		Preference button1 = (Preference)findPreference("button1");
+		button1.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference arg0) { 
 				Intent intent_ret = new Intent();
@@ -60,6 +75,7 @@ public class Setting extends PreferenceActivity
 				return true;
 			}
 		});	
+	
 	}
 	
 	 public boolean onPreferenceChange(android.preference.Preference preference,	

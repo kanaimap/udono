@@ -4,12 +4,44 @@
         <item>totoro</item>
         <item>blue</item>
         <item>green</item>
-        <item>footprint</item>
+        <item>akaka</item>
+        <item>cat</item>
+        <item>kuma</item>
+        <item>obake</item>
+        <item>pen</item>
+        <item>pengin</item>
+        <item>toge</item>
+        <item>yajirushi</item>
     </string-array>
      <string-array name="list_entryvalues">
         <item>totoro</item>
         <item>blue</item>
         <item>green</item>
-        <item>footprint</item>
+        <item>akaka</item>
+        <item>cat</item>
+        <item>kuma</item>
+        <item>obake</item>
+        <item>pen</item>
+        <item>pengin</item>
+        <item>toge</item>
+        <item>yajirushi</item>
+    </string-array>
+    
+     
+    <string-array name="ashiato_entries">
+        <item>a_hito</item>
+        <item>a_kaiju</item>
+        <item>a_kutsu</item>
+        <item>a_neko</item>
+        <item>a_tensen</item>
+        <item>a_tori</item>
+    </string-array>
+     <string-array name="ashiato_entryvalues">
+       <item>a_hito</item>
+        <item>a_kaiju</item>
+        <item>a_kutsu</item>
+        <item>a_neko</item>
+        <item>a_tensen</item>
+        <item>a_tori</item>
     </string-array>
 </resources>

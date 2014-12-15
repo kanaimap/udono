@@ -15,12 +15,33 @@
             android:dialogTitle="@string/list_dialogtitle"
             android:entries="@array/list_entries"
             android:entryValues="@array/list_entryvalues" />
-     
+       
+        <ListPreference            
+            android:key="ashiato"
+            android:title="@string/ashiato_title"
+            android:dialogTitle="@string/ashiato_dialogtitle"
+            android:entries="@array/ashiato_entries"
+            android:entryValues="@array/ashiato_entryvalues" />
+        
+        <EditTextPreference
+            android:key="comment"
+            android:title="@string/comment_title"
+            android:summary="@string/comment_summary"
+            android:dialogTitle="@string/comment_dialogtitle" />
+        
+        <EditTextPreference
+            android:key="interval"
+            android:title="@string/interval_title"
+            android:summary="@string/interval_summary"
+            android:dialogTitle="@string/interval_dialogtitle"
+            android:inputType="number"
+             />   
          
         <Preference 
-            android:title="マーカー配置"
-            android:key="button"
-            android:summary="マーカー配置"/>
+            android:title="マーカー全削除"
+            android:key="button1"
+            android:summary="マーカー全削除"/>
+        
 
         
     </PreferenceCategory>
